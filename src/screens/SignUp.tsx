@@ -5,6 +5,8 @@ import { CustomInput } from "@components/CustomInput";
 import { ButtonWithText } from "@components/ButtonWithText";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigation } from "@react-navigation/native"
+import { AuthNavigationRoutesProps } from "@routes/auth.routes";
 
 import MarketSpaceIcon from "@assets/MarketSpaceIcon.svg";
 
@@ -33,6 +35,8 @@ const ValidationSchemaForm = yup.object({
 });
 
 export function SignUp() {
+  const navigation = useNavigation<AuthNavigationRoutesProps>()
+
   const {
     control,
     handleSubmit,
@@ -53,7 +57,7 @@ export function SignUp() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false} flex={1}>
         <VStack roundedBottom={28} flex={1} bg="gray.200">
           <Center px={10} mt={2}>
             <MarketSpaceIcon width={80} />
@@ -108,6 +112,7 @@ export function SignUp() {
               render={({ field: { onChange, value } }) => (
                 <CustomInput
                   placeholder="Nome"
+                  mb={errors.name?.message ? 0 : 4}
                   value={value}
                   onChangeText={onChange}
                   errorMessage={errors.name?.message}
@@ -122,6 +127,7 @@ export function SignUp() {
                 <CustomInput
                   placeholder="E-mail"
                   value={value}
+                  mb={errors.email?.message ? 0 : 4}
                   onChangeText={onChange}
                   errorMessage={errors.email?.message}
                 />
@@ -134,6 +140,7 @@ export function SignUp() {
               render={({ field: { onChange, value } }) => (
                 <CustomInput
                   placeholder="Telefone"
+                  mb={errors.phone?.message ? 0 : 4}
                   value={value}
                   onChangeText={onChange}
                   errorMessage={errors.phone?.message}
@@ -146,6 +153,7 @@ export function SignUp() {
               name="password"
               render={({ field: { onChange, value } }) => (
                 <CustomInput
+                  mb={errors.password?.message ? 0 : 4}
                   isIconVisible
                   placeholder="Senha"
                   value={value}
@@ -160,6 +168,7 @@ export function SignUp() {
               name="password_confirm"
               render={({ field: { onChange, value } }) => (
                 <CustomInput
+                  mb={errors.password_confirm?.message ? 0 : 4}
                   isIconVisible
                   placeholder="Confirmar senha"
                   value={value}
@@ -173,6 +182,16 @@ export function SignUp() {
               onPress={handleSubmit(handleSubmitForm)}
               text="Criar"
               bg="gray.700"
+            />
+
+            <Text fontFamily="body" fontSize="16px" color="gray.600" mb={3} mt={8}>Já tem uma conta?</Text>
+
+            <ButtonWithText 
+              text="Ir para o login"
+              onPress={() => navigation.navigate("login")}
+              bg="gray.300"
+              color="gray.600"
+              mb={4}
             />
           </Center>
         </VStack>
