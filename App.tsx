@@ -2,8 +2,8 @@ import { useFonts, Karla_400Regular, Karla_700Bold } from '@expo-google-fonts/ka
 import { NativeBaseProvider } from 'native-base';
 import { THEME } from './src/theme';
 import { StatusBar } from 'react-native'
-import { Login } from './src/screens/Login';
 import { Loading } from './src/components/Loading';
+import { Routes } from '@routes/index';
 
 export default function App() {
   const [fontsLoadead] = useFonts({ Karla_400Regular, Karla_700Bold })
@@ -11,11 +11,11 @@ export default function App() {
   return (
     <NativeBaseProvider theme={THEME}>
       <StatusBar
-        barStyle='light-content'
-        backgroundColor='transparent'
+        barStyle='dark-content'
+        backgroundColor='#EDECEE'
         translucent
       />
-      {fontsLoadead ? <Login /> : <Loading />}
+      {fontsLoadead ? <Routes /> : <Loading />}
     </NativeBaseProvider>
   );
 }
